@@ -1,24 +1,23 @@
-# HCtest -- Higher Criticism Test
+# TwoBinomialSamples: Two-sample testing for counts data
+Usually in the context of a multiple testing approach to compare two or more
+frequency tables. 
 
-Higher Criticism (HC) test statistics for testing the global significance of many independent hypotheses. As an input, 
-the test receives a list of P-values and returns the HC test statistics. See (Donoho & Jin 2004)
+References:
+[1] D. L. Donoho and A. Kipnis. (2022) Higher criticism to compare two large frequency tables,
+with sensitivity to possible rare and weak differences. Annals of Statistics. 
+[2]  C. B. Dean. (1992) Testing for Overdispersion in Poisson and Binomial Regression Models. 
+Journal of the American Statistical Association
+
+
+## Methods:
+- ``bin_allocation_test`` (the test from [1])
+- ``bin_variance_test`` (test from [2])
+- ``bin_variance_test_df`` the same as ``bin_variance_test`` plus additional information
 
 ## Example:
 ```
-from scipy.stats import norm
-from multitest import MultiTest
+from scipy.stats import poisson
 
-n = 1000 #number of samples
 
-X = norm.rvs(size=n)
-pvals = norm.sf(X)
 
-mt = MultiTest(pvals)
-hc_val, p_th = mt.HCstar(gamma = 0.25)
-minus_log_min_pval = mt.minp()
-fdr, pval_fdr = mt.fdr()
-
-print(f"Higher-Criticism test statistic = {hc_val}")
-print(f"False-discovery rate {q} critical P-value = {pval_fdr}")
-print(f"Bonferroni {minus_log_min_pval}")
 ```
